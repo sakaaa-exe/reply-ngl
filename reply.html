@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balasan Pesan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        .message-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .message-box h2 {
+            color: #333;
+        }
+        .message-box p {
+            font-size: 18px;
+            color: #666;
+            word-wrap: break-word;
+        }
+        .reply-box {
+            margin-top: 20px;
+        }
+        .reply-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .reply-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message-box">
+        <h2>Pesan Anonim</h2>
+        <p id="receivedMessage">Memuat pesan...</p>
+    </div>
+
+    <div class="reply-box">
+        <button class="reply-btn" onclick="sendReply()">Balas Pesan</button>
+    </div>
+
+    <script>
+        // Mendapatkan parameter 'message' dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const receivedMessage = urlParams.get('message');
+
+        // Menampilkan pesan yang diterima
+        const messageBox = document.getElementById('receivedMessage');
+        if (receivedMessage) {
+            messageBox.textContent = decodeURIComponent(receivedMessage);
+        } else {
+            messageBox.textContent = "Pesan tidak ditemukan.";
+        }
+
+        // Fungsi untuk mengarahkan ke halaman balasan (misalnya halaman Telegram atau form balasan)
+        function sendReply() {
+            // Ganti dengan URL atau logika balasan yang Anda inginkan
+            window.location.href = "https://yourtelegramreplypage.com";
+        }
+    </script>
+
+</body>
+</html>
