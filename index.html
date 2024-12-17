@@ -1,79 +1,252 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="--vh: 100%;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balasan Pesan</title>
+    <title>Balasan Pesan Anonymous</title>
     <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #4c6ef5, #15aabf);
+            background-size: 200% 200%;
+            animation: gradientMove 6s infinite ease-in-out;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 420px;
             padding: 20px;
+            height: 100%;
+        }
+
+        .card {
+            background: #ffffff;
+            color: #333;
+            width: 100%;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Profil Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #4c6ef5;
+        }
+
+        .profile-info h2 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #4c6ef5;
+        }
+
+        .profile-info p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #4c6ef5;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        p {
+            font-size: 0.8rem;
+            margin-bottom: 25px;
+            color: #555;
+            animation: fadeInText 1.5s ease-out;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .response-message {
+            margin-top: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            color: #333;
+            font-size: 1rem;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInText 1.5s ease-out;
+        }
+
+        .credit {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px 30px;
+            max-width: 450px;
+            width: 90%;
             text-align: center;
         }
-        .message-box {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 10px auto;
-            max-width: 600px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
         }
-        .message-box h2 {
+
+        .close-btn:hover {
+            color: #4c6ef5;
+        }
+
+        .status-icon {
+            font-size: 60px;
+        }
+
+        #modal-title {
+            font-size: 1.5rem;
+            color: #4c6ef5;
+            margin-bottom: 10px;
+        }
+
+        #modal-message {
+            font-size: 1rem;
             color: #333;
         }
-        .message-box p {
-            font-size: 18px;
-            color: #666;
-            word-wrap: break-word;
-        }
-        .reply-box {
-            margin-top: 20px;
-        }
-        .reply-btn {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .reply-btn:hover {
-            background-color: #0056b3;
-        }
+
     </style>
+    <link rel="icon" href="logo.png" type="image/png">
 </head>
 <body>
-
-    <div class="message-box">
-        <h2>Pesan Anonim</h2>
-        <p id="receivedMessage">Memuat pesan...</p>
+    <div class="container">
+        <div class="card">
+            <div class="profile-header">
+                <img src="logo.png" alt="Foto Profil" class="profile-picture">
+                <div class="profile-info">
+                    <h2>@sakhrdty</h2>
+                    <p>Anonymous Q&A</p>
+                </div>
+            </div>
+            <h1>Anonymous Message</h1>
+            <p>📬 Pesan Anonim Baru Diterima! 📬</p>
+            <div id="responseMessage" class="response-message">
+                <!-- Pesan balasan akan muncul di sini -->
+            </div>
+            <p class="credit">@sakhrdty & @sadtyy_bot - Creator of this Website</p>
+        </div>
     </div>
-
-    <div class="reply-box">
-        <button class="reply-btn" onclick="sendReply()">Balas Pesan</button>
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-icon">
+                <i id="modal-icon" class="status-icon"></i>
+            </div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+        </div>
     </div>
-
     <script>
-        // Mendapatkan parameter 'message' dari URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const receivedMessage = urlParams.get('message');
+        // Ambil elemen untuk menampilkan pesan balasan
+        const responseMessageContainer = document.getElementById("responseMessage");
 
-        // Menampilkan pesan yang diterima
-        const messageBox = document.getElementById('receivedMessage');
-        if (receivedMessage) {
-            messageBox.textContent = decodeURIComponent(receivedMessage);
-        } else {
-            messageBox.textContent = "Pesan tidak ditemukan.";
-        }
+        // Fungsi untuk mengambil pesan balasan
+        const getMessageFromTelegram = () => {
+            // Contoh pesan yang diambil dari bot Telegram (misalnya melalui API)
+            const telegramMessage = "Kirimi Aku Pesan Anonim";
+            
+            // Tampilkan pesan di halaman
+            responseMessageContainer.textContent = telegramMessage;
+        };
 
-        // Fungsi untuk mengarahkan ke halaman balasan (misalnya halaman Telegram atau form balasan)
-        function sendReply() {
-            // Ganti dengan URL atau logika balasan yang Anda inginkan
-            window.location.href = "https://yourtelegramreplypage.com";
-        }
+        // Panggil fungsi getMessageFromTelegram untuk menampilkan pesan
+        getMessageFromTelegram();
     </script>
-
 </body>
 </html>
