@@ -233,20 +233,16 @@
         </div>
     </div>
     <script>
-        // Ambil elemen untuk menampilkan pesan balasan
-        const responseMessageContainer = document.getElementById("responseMessage");
+    // Ambil parameter dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
 
-        // Fungsi untuk mengambil pesan balasan
-        const getMessageFromTelegram = () => {
-            // Contoh pesan yang diambil dari bot Telegram (misalnya melalui API)
-            const telegramMessage = "Kirimi Aku Pesan Anonim";
-            
-            // Tampilkan pesan di halaman
-            responseMessageContainer.textContent = telegramMessage;
-        };
-
-        // Panggil fungsi getMessageFromTelegram untuk menampilkan pesan
-        getMessageFromTelegram();
+    // Jika ada parameter pesan, tampilkan di halaman
+    if (message) {
+        document.getElementById("responseMessage").textContent = decodeURIComponent(message);
+    } else {
+        document.getElementById("responseMessage").textContent = "Tidak ada pesan yang ditemukan.";
+    }
     </script>
 </body>
 </html>
